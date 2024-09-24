@@ -4,10 +4,12 @@ import Home from './pages/Home';
 import Usuario from './pages/Usuario';
 import Layout from './components/Layout'; 
 import Lista from './pages/Lista';
+import { MateriasProvider } from './context/MateriaContext';
 
 const App: React.FC = () => {
   return (
     <Router>
+      <MateriasProvider>
       <Layout>
       <Routes>
         <Route path="/" element={<Home />} />  {/* Define a Home como a rota padrão */}
@@ -15,6 +17,7 @@ const App: React.FC = () => {
         <Route path="/lista" element={<Lista />} />
       </Routes>
       </Layout>
+      </MateriasProvider>
     </Router>
   );
 };

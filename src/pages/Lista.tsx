@@ -1,18 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
+import { MateriasContext } from '../context/MateriaContext';
 
 const Lista: React.FC = () => {
-  const baseMaterias = ["Matemática", "Português", "História", "Geografia", "Ciências"];
-
-  // Recupera matérias do localStorage ou usa as matérias base
-  const [materias, setMaterias] = useState<string[]>(() => {
-    const storedMaterias = localStorage.getItem('materias');
-    return storedMaterias ? JSON.parse(storedMaterias) : baseMaterias;
-  });
-
-  // Atualiza o localStorage sempre que a lista de matérias mudar
-  useEffect(() => {
-    localStorage.setItem('materias', JSON.stringify(materias));
-  }, [materias]);
+  const { materias, setMaterias } = useContext(MateriasContext);
 
   // Função para adicionar uma nova matéria
   const adicionarMateria = () => {
@@ -30,24 +20,30 @@ const Lista: React.FC = () => {
 
   return (
     <div className="px-8 py-8">
-      <h1 className="text-3xl font-bold text-gray-800 mb-4">Lista de Matérias</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Lista de Matérias</h1>
 
-      <ul className="mb-4">
+      {/* Grid para exibir os cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-4">
         {materias.map((materia, index) => (
-          <li key={index} className="flex justify-between items-center bg-gray-100 p-2 mb-2 rounded">
-            <span>{materia}</span>
+          <div 
+            key={index} 
+            className="bg-white shadow-md rounded-lg p-6 flex flex-col justify-between"
+          >
+            <h2 className="text-xl font-semibold mb-4">{materia}</h2>
             <button
               onClick={() => removerMateria(index)}
-              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700">
+              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700 mt-auto"
+            >
               Remover
             </button>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
 
       <button
         onClick={adicionarMateria}
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
         Adicionar Matéria
       </button>
     </div>
