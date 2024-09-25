@@ -93,7 +93,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <ul>
               {materias.slice(0, 3).map((materia, index) => (
                 <li key={index} className="text-sm mb-1">
-                  {materia}
+                  {materia.nome}
                 </li>
               ))}
             </ul>
